@@ -13,25 +13,14 @@ func main() {
 	digispark := new(gobotDigispark.DigisparkAdaptor)
 	digispark.Name = "digispark"
 
-	red := gobotGPIO.NewLed(digispark)
-	red.Name = "red"
-	red.Pin = "0"
+	led := gobotGPIO.NewLed(digispark)
+	led.Name = "led"
+	led.Pin = "2"
 
-	blue := gobotGPIO.NewLed(digispark)
-	blue.Name = "blue"
-	blue.Pin = "2"
-
-	work := func() {
-		gobot.Every("1s", func() {
-			red.Toggle()
-		})
-	}
-
-	master.Robots = append(master.Robots, gobot.Robot{
+	master.Robots = append(master.Robots, &gobot.Robot{
 		Name:        "digispark",
 		Connections: []gobot.Connection{digispark},
-		Devices:     []gobot.Device{red, blue},
-		Work: work,
+		Devices:     []gobot.Device{red},
 	})
 
 	master.Start()

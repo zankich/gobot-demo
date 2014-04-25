@@ -50,7 +50,7 @@ func main() {
 				go func() {
 					for {
 						drone.Hover()
-						i := image
+						i := image.Clone()
 						faces := gobotOpencv.DetectFaces(cascade, i)
 						biggest := 0
 						var face *cv.Rect
@@ -61,8 +61,8 @@ func main() {
 							}
 						}
 						if face != nil && (face.Width() <= 100 && face.Width() >= 45) {
-							gobotOpencv.DrawRectangles(i, []*cv.Rect{face})
-							center_x := float64(image.Width()) * 0.5
+							gobotOpencv.DrawRectangles(i, []*cv.Rect{face}, 0, 255, 0, 5)
+							center_x := float64(i.Width()) * 0.5
 							turn := -(float64(face.X()) - center_x) / center_x
 							fmt.Println("turning:", turn)
 							if turn < 0 {

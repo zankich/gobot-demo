@@ -68,7 +68,7 @@ func main() {
 			}
 		})
 
-		gobot.Every("0.01s", func() {
+		gobot.Every("100ms", func() {
 			pair := left_stick
 			if pair.y < -10 {
 				drone.Forward(validatePitch(pair.y, offset))
@@ -87,7 +87,7 @@ func main() {
 			}
 		})
 
-		gobot.Every("0.01s", func() {
+		gobot.Every("100ms", func() {
 			pair := right_stick
 			if pair.y < -10 {
 				drone.Up(validatePitch(pair.y, offset))
@@ -97,9 +97,9 @@ func main() {
 				drone.Up(0)
 			}
 
-			if pair.x < -15 {
+			if pair.x > -15 {
 				drone.Clockwise(validatePitch(pair.x, offset))
-			} else if pair.x > 15 {
+			} else if pair.x < 15 {
 				drone.CounterClockwise(validatePitch(pair.x, offset))
 			} else {
 				drone.Clockwise(0)

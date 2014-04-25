@@ -17,11 +17,13 @@ func main() {
 
 	master := gobot.GobotMaster()
 
-	var robots []gobot.Robot
+	var robots []*gobot.Robot
 	spheros := []string{
 		"/dev/rfcomm0",
 		"/dev/rfcomm1",
 		"/dev/rfcomm2",
+		"/dev/rfcomm3",
+		"/dev/rfcomm4",
 	}
 
 	for s := range spheros {
@@ -56,7 +58,7 @@ func main() {
 			})
 		}
 
-		robots = append(robots, gobot.Robot{Connections: []gobot.Connection{spheroAdaptor}, Devices: []gobot.Device{sphero}, Work: work})
+		robots = append(robots, &gobot.Robot{Connections: []gobot.Connection{spheroAdaptor}, Devices: []gobot.Device{sphero}, Work: work})
 	}
 
 	master.Robots = robots
@@ -122,6 +124,6 @@ func (c *conway) birthday() {
 
 func (c *conway) movement() {
 	if c.alive == true {
-		c.sphero.Roll(100, uint16(gobot.Rand(360)))
+		c.sphero.Roll(70, uint16(gobot.Rand(360)))
 	}
 }
